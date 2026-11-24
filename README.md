@@ -46,3 +46,10 @@ The trade-off is that the amortized bounds are not worst-case. A single delete-m
 `meld` consumes the other heap and requires both heaps to use equivalent key functions. It does not check that the keys match, because comparing functions is not reliable in Python. If you meld heaps with different key functions, the ordering is whatever results from mixing those keys. Also, `meld` raises `ValueError` if you pass the same heap object, since that would create a cycle.
 
 Iteration yields values in arbitrary order and does not consume the heap. `pop` and `peek` raise `IndexError` on an empty heap.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
